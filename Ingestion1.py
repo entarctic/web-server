@@ -4,7 +4,7 @@ import requests
 import threading 
 
 app = Flask(__name__) #Just naming the app
-GOOGLE_SCRIPT_URL = "https://docs.google.com/spreadsheets/d/1Z4GN0kPfH9XtNd9NwLdDdBgKs4PCGFBkccPMvU_bE9E/edit#gid=0"
+GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOLBarWGWFDp1TBS_2D-7YlM0vzPBHDi0wp4igdfAtjUgI4anBoGg5CkFx_4gyLQM/exec"
 
 def send_request_to_gscript(headers,json_data):
 	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data}") #everytime a json data is sent from UnaConnect, will print this line
