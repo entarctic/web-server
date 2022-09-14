@@ -15,7 +15,7 @@ GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOLBarWGWFDp1TBS_2
 
 def send_request_to_gscript(headers,json_data):
 	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data}") #everytime a json data is sent from UnaConnect, will print this line
-	requests.post(GOOGLE_SCRIPT_URL, headers=headers, json=json_data) #JSON data will come from UnaConnect
+	requests.post(GOOGLE_SCRIPT_URL, json=json_data) #JSON data will come from UnaConnect
 	#requests.post(	"https://entarctic-web-server.herokuapp.com/", headers=headers, json=json_data) #JSON data will come from UnaConnect
 	
 @app.route("/sensordata", methods=["POST"])
