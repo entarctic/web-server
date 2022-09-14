@@ -6,9 +6,11 @@ import threading
 app = Flask(__name__) #Just naming the app
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOLBarWGWFDp1TBS_2D-7YlM0vzPBHDi0wp4igdfAtjUgI4anBoGg5CkFx_4gyLQM/exec"
 
+
 def send_request_to_gscript(headers,json_data):
 	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data}") #everytime a json data is sent from UnaConnect, will print this line
-	requests.post(GOOGLE_SCRIPT_URL, headers=headers, json=json_data) #JSON data will come from UnaConnect
+	#requests.post(GOOGLE_SCRIPT_URL, headers=headers, json=json_data) #JSON data will come from UnaConnect
+	requests.post(	"https://entarctic-web-server.herokuapp.com/", headers=headers, json=json_data) #JSON data will come from UnaConnect
 	
 @app.route("/sensordata", methods=["POST"])
 def sensor_data():
