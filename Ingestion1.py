@@ -3,6 +3,12 @@ from flask import request
 import requests
 import threading 
 
+from http.client import HTTPConnection
+import logging                                                                                                                                                
+HTTPConnection.debuglevel = 1 
+log = logging.getLogger('urllib3')
+log.setLevel(logging.DEBUG)
+
 app = Flask(__name__) #Just naming the app
 GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxOLBarWGWFDp1TBS_2D-7YlM0vzPBHDi0wp4igdfAtjUgI4anBoGg5CkFx_4gyLQM/exec"
 
