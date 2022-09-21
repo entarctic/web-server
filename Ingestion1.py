@@ -14,27 +14,27 @@ GOOGLE_SCRIPT_TEMPERATURE_URL = "https://script.google.com/macros/s/AKfycbxOLBar
 GOOGLE_SCRIPT_POWER_URL = "https://script.google.com/macros/s/AKfycbzTenPmNkX87iYa62ndrb8GA3oGiZs-YjWp4FMG7vRXBmRrbAMEyllLd09uz9RrZLSw/exec"
 
 
-def send_request_to_gscript1(headers,json_data):
-	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data}") #everytime a json data is sent from UnaConnect, will print this line
-	requests.post(GOOGLE_SCRIPT_TEMPERATURE_URL, json=json_data) #JSON data will come from UnaConnect
+def send_request_to_gscript1(headers,json_data1):
+	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data1}") #everytime a json data is sent from UnaConnect, will print this line
+	requests.post(GOOGLE_SCRIPT_TEMPERATURE_URL, json=json_data1) #JSON data will come from UnaConnect
 	#requests.post(	"https://entarctic-web-server.herokuapp.com/", headers=headers, json=json_data) #JSON data will come from UnaConnect
-def send_request_to_gscript2(headers,json_data):
-	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data}") #everytime a json data is sent from UnaConnect, will print this line
-	requests.post(GOOGLE_SCRIPT_POWER_URL, json=json_data) #JSON data will come from UnaConnect
+def send_request_to_gscript2(headers,json_data2):
+	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data2}") #everytime a json data is sent from UnaConnect, will print this line
+	requests.post(GOOGLE_SCRIPT_POWER_URL, json=json_data2) #JSON data will come from UnaConnect
 	#requests.post(	"https://entarctic-web-server.herokuapp.com/", headers=headers, json=json_data) #JSON data will come from UnaConnect
 	
 @app.route("/temperaturedata", methods=["POST"])
 def temperature_data():
 	print(f"Got requests: {repr(request)}") 
-	json_data = None #Initialise to None
+	json_data1 = None #Initialise to None
 	try: #to test for errors 
-		json_data = request.json #receiving the json data
+		json_data1 = request.json #receiving the json data
 	except Exception as e:
 		print("Exception with parsing json data")
 		print(e)
 	headers = request.headers
 	try:
-		t = threading.Thread(target=send_request_to_gscript, args= (headers, json_data))
+		t = threading.Thread(target=send_request_to_gscript, args= (headers, json_data1))
 		t.start()
 	except Exception as e: #to handle the error
 		print("Exception with sending request to google server")
@@ -43,15 +43,15 @@ def temperature_data():
 @app.route("/powerdata", methods = ["POST"])
 def power_data():
 	print(f"Got requests: {repr(request)}") 
-	json_data = None #Initialise to None
+	json_data2 = None #Initialise to None
 	try: #to test for errors 
-		json_data = request.json #receiving the json data
+		json_data2 = request.json #receiving the json data
 	except Exception as e:
 		print("Exception with parsing json data")
 		print(e)
 	headers = request.headers
 	try:
-		t = threading.Thread(target=send_request_to_gscript, args= (headers, json_data))
+		t = threading.Thread(target=send_request_to_gscript, args= (headers, json_data2))
 		t.start()
 	except Exception as e: #to handle the error
 		print("Exception with sending request to google server")
