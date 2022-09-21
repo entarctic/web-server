@@ -34,7 +34,7 @@ def temperature_data():
 		print(e)
 	headers = request.headers
 	try:
-		t = threading.Thread(target=send_request_to_gscript, args= (headers, json_data1))
+		t = threading.Thread(target=send_request_to_gscript1, args= (headers, json_data1))
 		t.start()
 	except Exception as e: #to handle the error
 		print("Exception with sending request to google server")
@@ -51,7 +51,7 @@ def power_data():
 		print(e)
 	headers = request.headers
 	try:
-		t = threading.Thread(target=send_request_to_gscript, args= (headers, json_data2))
+		t = threading.Thread(target=send_request_to_gscript2, args= (headers, json_data2))
 		t.start()
 	except Exception as e: #to handle the error
 		print("Exception with sending request to google server")
