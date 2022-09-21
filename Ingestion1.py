@@ -40,7 +40,7 @@ def temperature_data():
 		print("Exception with sending request to google server")
 		print(e)
 	return "Success!\n"
-@app.route("/powerdata", methods = ["POST"]
+@app.route("/powerdata", methods = ["POST"])
 def power_data():
 	print(f"Got requests: {repr(request)}") 
 	json_data = None #Initialise to None
