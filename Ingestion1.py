@@ -12,6 +12,7 @@ log.setLevel(logging.DEBUG)
 app = Flask(__name__) #Just naming the app
 GOOGLE_SCRIPT_TEMPERATURE_URL = "https://script.google.com/macros/s/AKfycbz3062GnnfgrxfdSbRI8Eek1k2U2DVINDri2Slu5AATrCDDVW1YxbYI-UqYZApPT3rlIQ/exec"
 GOOGLE_SCRIPT_POWER_URL = "https://script.google.com/macros/s/AKfycbyYLvJ1BlTbndFYszpeXWUbOdSOgqZ6SwBhHfL186M4rtUfTmRNZcjRZaSYroZNgb2yXg/exec"
+GOOGLE_SCRIPT_FLEXSENSE_URL = "https://script.google.com/macros/s/AKfycbyR3m3OOodlrdY-e003NaTzAyOEfEMENmIOcMhM2Ib4s232HVgkEd6uIkAHS1lc_lh3/exec"
 
 
 def send_request_to_gscript1(headers,json_data1):
@@ -21,6 +22,10 @@ def send_request_to_gscript1(headers,json_data1):
 def send_request_to_gscript2(headers,json_data2):
 	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data2}") #everytime a json data is sent from UnaConnect, will print this line
 	requests.post(GOOGLE_SCRIPT_POWER_URL, json=json_data2) #JSON data will come from UnaConnect
+	#requests.post(	"https://entarctic-web-server.herokuapp.com/", headers=headers, json=json_data) #JSON data will come from UnaConnect
+def send_request_to_gscript3(headers,json_data3):
+	print(f"Sending to script:\nHeaders: {headers} \nJson: {json_data3}") #everytime a json data is sent from UnaConnect, will print this line
+	requests.post(GOOGLE_SCRIPT_FLEXSENSE_URL, json=json_data3) #JSON data will come from UnaConnect
 	#requests.post(	"https://entarctic-web-server.herokuapp.com/", headers=headers, json=json_data) #JSON data will come from UnaConnect
 	
 @app.route("/temperaturedata", methods=["POST"])
@@ -40,6 +45,7 @@ def temperature_data():
 		print("Exception with sending request to google server")
 		print(e)
 	return "Success!\n"
+
 @app.route("/powerdata", methods = ["POST"])
 def power_data():
 	print(f"Got requests: {repr(request)}") 
@@ -57,6 +63,25 @@ def power_data():
 		print("Exception with sending request to google server")
 		print(e)
 	return "Success!\n"
+
+@app.route("/humiditydata", methods = ["POST"])
+def humidity_data():
+	print(f"Got requests: {repr(request)}") 
+	json_data3 = None #Initialise to None
+	try: #to test for errors 
+		json_data3 = request.json #receiving the json data
+	except Exception as e:
+		print("Exception with parsing json data")
+		print(e)
+	headers = request.headers
+	try:
+		t = threading.Thread(target=send_request_to_gscript3, args= (headers, json_data3))
+		t.start()
+	except Exception as e: #to handle the error
+		print("Exception with sending request to google server")
+		print(e)
+	return "Success!\n"
+
 
 if __name__ == "__main__":
 	app.run() #(ssl_context = 'adhoc')
