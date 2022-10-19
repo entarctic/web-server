@@ -10,7 +10,7 @@ log = logging.getLogger('urllib3')
 log.setLevel(logging.DEBUG)
 
 app = Flask(__name__) #Just naming the app
-GOOGLE_SCRIPT_TEMPERATURE_URL = "https://script.google.com/macros/s/AKfycbyMlhQePoXpEDiWfzwx_GudBCDGckbTmBk2-yvjM1KgoQfMJ9SLgSMvyniA4BHZLP1KvQ/exec"
+GOOGLE_SCRIPT_TEMPERATURE_URL = "https://script.google.com/macros/s/AKfycbyH72Z73GaRF_XpNoeBYHUajlw-8MMtBV4kWHGU_OAUv9e1e-j4gFiH9tYWkz49RIy1tA/exec"
 GOOGLE_SCRIPT_POWER_URL = "https://script.google.com/macros/s/AKfycbyYLvJ1BlTbndFYszpeXWUbOdSOgqZ6SwBhHfL186M4rtUfTmRNZcjRZaSYroZNgb2yXg/exec"
 GOOGLE_SCRIPT_FLEXSENSE_URL = "https://script.google.com/macros/s/AKfycbyR3m3OOodlrdY-e003NaTzAyOEfEMENmIOcMhM2Ib4s232HVgkEd6uIkAHS1lc_lh3/exec"
 
